@@ -30,3 +30,6 @@ DerivedData/
 /*.gcno
 
 **/.DS_STORE
+
+## Acidanthera SDK
+MacKernelSDK/

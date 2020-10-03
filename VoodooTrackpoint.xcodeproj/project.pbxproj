@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		287A12A0252906150092D0FB /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 287A129F252906150092D0FB /* libkmod.a */; };
 		B33179B624AA310A00200168 /* VoodooTrackpoint.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B33179B524AA310A00200168 /* VoodooTrackpoint.hpp */; };
 		B33179B824AA310A00200168 /* VoodooTrackpoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B33179B724AA310A00200168 /* VoodooTrackpoint.cpp */; };
 		B34FDAAE24AA356300DB6872 /* TrackpointDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B34FDAAC24AA356300DB6872 /* TrackpointDevice.cpp */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		287A129F252906150092D0FB /* libkmod.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libkmod.a; path = usr/lib/libkmod.a; sourceTree = SDKROOT; };
 		B33179B224AA310A00200168 /* VoodooTrackpoint.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoodooTrackpoint.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		B33179B524AA310A00200168 /* VoodooTrackpoint.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VoodooTrackpoint.hpp; sourceTree = "<group>"; };
 		B33179B724AA310A00200168 /* VoodooTrackpoint.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VoodooTrackpoint.cpp; sourceTree = "<group>"; };
@@ -30,17 +32,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				287A12A0252906150092D0FB /* libkmod.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		287A129E252906150092D0FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				287A129F252906150092D0FB /* libkmod.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B33179A824AA310A00200168 = {
 			isa = PBXGroup;
 			children = (
 				B33179B424AA310A00200168 /* VoodooTrackpoint */,
 				B33179B324AA310A00200168 /* Products */,
+				287A129E252906150092D0FB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,6 +98,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B33179BC24AA310A00200168 /* Build configuration list for PBXNativeTarget "VoodooTrackpoint" */;
 			buildPhases = (
+				287A12A2252907A30092D0FB /* Get SDK */,
 				B33179AD24AA310A00200168 /* Headers */,
 				B33179AE24AA310A00200168 /* Sources */,
 				B33179AF24AA310A00200168 /* Frameworks */,
@@ -106,7 +119,7 @@
 		B33179A924AA310A00200168 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = VoodooSMBus;
 				TargetAttributes = {
 					B33179B124AA310A00200168 = {
@@ -120,6 +133,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = B33179A824AA310A00200168;
 			productRefGroup = B33179B324AA310A00200168 /* Products */;
@@ -140,6 +154,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		287A12A2252907A30092D0FB /* Get SDK */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Get SDK";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ! -f \"${PROJECT_DIR}/MacKernelSDK/Headers/Availability.h\" ]; then\n    git clone --depth 1 https://github.com/acidanthera/MacKernelSDK.git\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B33179AE24AA310A00200168 /* Sources */ = {
@@ -180,6 +215,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -205,7 +241,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
+				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -239,6 +277,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -258,7 +297,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
+				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -268,14 +309,20 @@
 		B33179BD24AA310A00200168 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_DEADCODE_DEADSTORES = NO;
+				CLANG_ANALYZER_DIVIDE_BY_ZERO = NO;
+				CLANG_ANALYZER_NULL_DEREFERENCE = NO;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1.0.0d1;
 				INFOPLIST_FILE = VoodooTrackpoint/Info.plist;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Library/x86_64";
 				MODULE_NAME = com.VoodooSMBus.VoodooTrackpoint;
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.VoodooSMBus.VoodooTrackpoint;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -283,10 +330,12 @@
 		B33179BE24AA310A00200168 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1.0.0d1;
 				INFOPLIST_FILE = VoodooTrackpoint/Info.plist;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Library/x86_64";
 				MODULE_NAME = com.VoodooSMBus.VoodooTrackpoint;
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.VoodooSMBus.VoodooTrackpoint;
